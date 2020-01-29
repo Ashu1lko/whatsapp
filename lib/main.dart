@@ -11,8 +11,10 @@ void main()
       MaterialApp(
         home: MyApp(),
         title: 'WhatsApp',
-        theme: ThemeData(accentColor:Color(0xff075E54),primaryColor: Color(0xff25D366),
-    ),)
+        theme: ThemeData(accentColor:Colors.greenAccent,primaryColor: Colors.green,
+    ),
+    debugShowCheckedModeBanner: false,)
+
   );
 }
 class MyApp extends StatefulWidget {
@@ -20,20 +22,21 @@ class MyApp extends StatefulWidget {
   _MyAppState createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
-  @override
+class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   TabController _tabController;
+  @override
   void initState(){
     super.initState();
-    _tabController=TabController(
-      vsync: this,
-      length=4;
-    );
+  _tabController=TabController(initialIndex: 1, length: 4, vsync: this);
   }
+
+  @override
   void dispose(){
-    super.dispose();
     _tabController.dispose();
-  }
+    super.dispose();
+    }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -50,18 +53,26 @@ class _MyAppState extends State<MyApp> {
             Tab(text: 'CALLS',)
           ],
         ),
+        actions: <Widget>[Icon(Icons.search),Padding(padding: const EdgeInsets.symmetric(horizontal: 5.0),
+        ),Icon(Icons.more_vert)],
       ),
-    );
-        
-      
     body:TabBarView(
-      controller: _tabController
+      controller: _tabController,
       children: <Widget>[
-        camera(),
-        chat(),
-        status(),
-        call_history();
+        Camera(),
+        Chat(),
+        Status(),
+        CallHistory(),
 
-      ],);
+      ],),
+      floatingActionButton:FloatingActionButton(
+        backgroundColor: Theme.of(context).accentColor ,
+        child:Icon(Icons.message),
+        onPressed: ()=>print("open chats"),
+      ) ,
+      
+    );  
+      
+    
   }
 }

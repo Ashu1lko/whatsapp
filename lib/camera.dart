@@ -1,6 +1,6 @@
 import'package:flutter/material.dart';
 
-class camera extends StatelessWidget {
+class Camera extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
